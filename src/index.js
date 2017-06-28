@@ -1,4 +1,3 @@
-const m = require("mithril")
 // Global styles
 // import "./static/styles/main.scss";
 import "./static/styles/styles.css";

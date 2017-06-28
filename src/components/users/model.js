@@ -1,39 +1,43 @@
 /* global firebase */
 /* eslint no-undef: "error" */
-const UserRef = firebase.database().ref("api/v1/users/")
-const Task = require("data.task")
-const Maybe = require("data.maybe")
+import Task from "data.task"
+import { fromNullable } from "data.maybe"
+import Either  from "data.either"
+import { log  } from '../../utils/index.js'
+import { compose, map, prop} from 'ramda'
+import { tagged } from 'daggy'
 
-const toMaybe = obj => {
-  return obj.val() == null
-    ? Maybe.Nothing()
-    : Maybe.Just(obj)
-}
+//--models---------------------------------------------------------------------
+const vm =
+  tagged('firstName', 'lastName', 'profilePic', 'id' )
 
-const parseFirebaseDto = dto =>{
-  return dto.isNothing
-    ? Maybe.Nothing()
-    : Maybe.Just(dto.value.val())
-}
+//--Load------------------------------------------------------------------------
+const findUsers = ref =>
+  ref.once('value')
 
-const makeArray = obj => {
-  const toArray = dto => {
-    let res = Object.keys(dto)
-    return res.map(k => {
-      return [k, dto[k]]
-    })
-  }
+const findUsersTask = ref =>
+  new Task((rej, res) => findUsers(ref).then(res, rej))
 
-  return obj.isNothing
-    ? Maybe.Nothing()
-    : Maybe.Just(toArray(obj.value))
+const open = x =>
+  x.val()
+
+const safeParse =
+  compose(fromNullable, open)
+
+
+const toArray = x =>
+  [...Object.entries(x)]
+
+const toViewModel = x =>{
+  log('x')(x[0][1])
+  x => vm(x[0][1].firstName, x[0][1].lastName, x[0][1].profilePic, x[0][1].id, )
 }
 
 export const getUsersTask =
-  new Task((rej, res) => {
-    UserRef.once("value")
-      .then(fbDto => toMaybe(fbDto))
-      .then(dto => parseFirebaseDto(dto))
-      .then( obj => makeArray(obj))
-      .then(res, rej)
-  })
+  compose( map(map(toViewModel))
+        , map(map(toArray))
+        , map(safeParse)
+        , findUsersTask )
+
+  // (fbDto => res(fromNullable(fbDto).map(safeParse).map(toArray).map(toViewModel)), rej)
+  // })

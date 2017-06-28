@@ -3,7 +3,7 @@
 const getKey = () => firebase.database().ref().child("api/v1/users/").push().key
 const UserRef = id => firebase.database().ref(`api/v1/users/${id}`)
 const removeUser = id => UserRef.child(id)
-const Task = require("data.task")
+import Task from "data.task"
 
 
 export const getUserTask = id =>

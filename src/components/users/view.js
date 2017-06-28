@@ -1,5 +1,5 @@
 const m = require("mithril")
-const Users = require("./index.js")
+const Users = require("./component.js")
 
 const UserList = {
   oninit: Users.load,

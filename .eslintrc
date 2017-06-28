@@ -1,15 +1,26 @@
 {
   "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 6,
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    },
   "extends": [
     "standard"
   ],
   "env": {
-    "browser": true
+    "browser": true,
+    "commonjs": true,
+    "es6": true
   },
   "rules": {
-    "semi": [2, "always"],
     "max-len": [2, 200, 2],
-    "quotes": ["error", "double"]
+    "quotes": ["error", "double"],
+    "indent": ["error", 2],
+    "linebreak-style": ["error", "unix" ],
+    "no-console": 1
+  }
   },
   "globals" : {
     "m": true
