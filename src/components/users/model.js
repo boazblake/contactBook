@@ -25,6 +25,9 @@ const safeParse =
   compose(fromNullable, open)
 
 
+// const toArray = x =>
+//   new Map([...Object.entries(x)])
+
 const toArray = x =>
   [...Object.entries(x)]
 

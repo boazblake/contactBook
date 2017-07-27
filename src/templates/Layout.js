@@ -1,6 +1,6 @@
-var m = require("mithril")
+import m from "mithril"
 
-const Layout = {
+export const Layout = {
   view: function(vnode) {
     return m("main.layout", [
       m("nav.menu ", {class:"c-nav c-nav--inline c-nav--light"},[
@@ -11,6 +11,3 @@ const Layout = {
     ])
   }
 }
-
-
-module.exports = Layout
