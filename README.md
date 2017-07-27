@@ -1,9 +1,9 @@
 # Mithril Webpack Starter
 
-This starter is based on [Peter Morawiec](https://github.com/moarwick)'s [elm-webpack-starter](https://github.com/moarwick/elm-webpack-starter)
+This starter is based on [Yoeran Luteijn](https://github.com/yoeran/)'s [mithril-webpack-starter](https://github.com/yoeran/mithril-webpack-starter)
 
 ### About:
-A simple Webpack setup for writing [Mithril](http://mithril.js.org/) apps:
+Functional-Mithril-Firebase-Webpack
 
 * Dev server with live reloading, HMR
 * Support for CSS/SCSS (with Autoprefixer), image assets

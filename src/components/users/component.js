@@ -1,6 +1,7 @@
 import { clone, map } from 'ramda'
 import { getUsersTask } from "./model.js"
 import { log } from '../../utils/index.js'
+
 const UsersRef = firebase.database().ref(`api/v1/users/`)
 
 
@@ -20,9 +21,9 @@ const Users = {
 
     const onSuccess = dto => {
       const value = []
-      const data = dto//.getOrElse({})
+      const data = dto.getOrElse(value)
 
-        log('data')(dto)
+      log('data')(data)
       if (!data) {
         return console.error("no users")
       }

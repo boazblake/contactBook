@@ -3,17 +3,20 @@
 import Task from "data.task"
 import { fromNullable } from "data.maybe"
 import Either  from "data.either"
-import { log  } from '../../utils/index.js'
-import { compose, map, prop} from 'ramda'
+import { log, fold  } from '../../utils/index.js'
+import { compose, identity, map, lensProp, forEachObjIndexed} from 'ramda'
 import { tagged } from 'daggy'
+import { data } from './data.js'
 
 //--models---------------------------------------------------------------------
+const UsersRef = firebase.database().ref(`api/v1/users/`)
+
 const vm =
   tagged('firstName', 'lastName', 'profilePic', 'id' )
 
 //--Load------------------------------------------------------------------------
-const findUsers = ref =>
-  ref.once('value')
+const findUsers = _ =>// Promise.resolve(data)
+ UsersRef.once('value')
 
 const findUsersTask = ref =>
   new Task((rej, res) => findUsers(ref).then(res, rej))
@@ -24,20 +27,16 @@ const open = x =>
 const safeParse =
   compose(fromNullable, open)
 
-
 const toArray = x =>
-  [...Object.entries(x)]
+  new Map([...Object.entries(x)])
 
-const toViewModel = x =>{
-  log('x')(x[0][1])
-  x => vm(x[0][1].firstName, x[0][1].lastName, x[0][1].profilePic, x[0][1].id, )
-}
+const toViewModel = dto =>
+  forEachObjIndexed((x =>
+    vm(x.firstName, x.lastName, x.profilePc, x.id)), dto)
+
 
 export const getUsersTask =
-  compose( map(map(toViewModel))
-        , map(map(toArray))
-        , map(safeParse)
-        , findUsersTask )
-
-  // (fbDto => res(fromNullable(fbDto).map(safeParse).map(toArray).map(toViewModel)), rej)
-  // })
+  compose(map(log('test')), map(map(toViewModel))
+         , map(map(toArray)) // this data type is fucking me over
+         , map(safeParse)
+         , findUsersTask )

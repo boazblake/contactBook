@@ -1,5 +1,5 @@
-const m = require("mithril")
-const Users = require("./component.js")
+import  m from "mithril"
+import  Users from "./component.js"
 
 const UserList = {
   oninit: Users.load,

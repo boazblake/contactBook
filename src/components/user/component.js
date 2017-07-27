@@ -1,9 +1,9 @@
-const m = require("mithril")
-const R = require("ramda")
-const { editUserTask, addUserTask, getUserTask, delUserTask} = require("./model.js")
-const { log } = require("../../utils/index.js")
+import m from "mithril"
+import R from "ramda"
+import { editUserTask, addUserTask, getUserTask, delUserTask} from "./model.js"
+import { log } from "../../utils/index.js"
 
-const User = {
+export const User = {
   state: {
     current:{},
     updatedUserObject:{},
@@ -12,7 +12,7 @@ const User = {
   errors:{},
 
   edit:id => {
-    const onError =e => console.log("E",e)
+    const onError = e => console.log("E",e)
     const onSuccess = data => {
       User.data = data.val()
       User.state.current = R.clone(User.data)
@@ -63,5 +63,3 @@ const User = {
   },
 
 }
-
-module.exports = User

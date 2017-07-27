@@ -1,9 +1,10 @@
 /* global firebase */
 /* eslint no-undef: "error" */
+import Task from "data.task"
+
 const getKey = () => firebase.database().ref().child("api/v1/users/").push().key
 const UserRef = id => firebase.database().ref(`api/v1/users/${id}`)
-const removeUser = id => UserRef.child(id)
-import Task from "data.task"
+const removeUser = id => UserRef(id).child(id)
 
 
 export const getUserTask = id =>

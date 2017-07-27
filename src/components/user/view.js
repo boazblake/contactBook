@@ -1,8 +1,8 @@
-const m = require("mithril")
-const User = require("./component.js")
+import m from "mithril"
+import User from "./component.js"
 
 
-const UserForm = {
+export const UserForm = {
   oninit: vnode => {vnode.attrs.id? User.edit(vnode.attrs.id) : User.add()},
   view: function() {
     return User.state.current
@@ -45,5 +45,3 @@ const UserForm = {
       ])  : "LOADING"
   }
 }
-
-module.exports = UserForm

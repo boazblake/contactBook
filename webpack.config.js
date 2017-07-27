@@ -5,8 +5,14 @@ var HtmlWebpackPlugin = require("html-webpack-plugin");
 var autoprefixer = require("autoprefixer");
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var CopyWebpackPlugin = require("copy-webpack-plugin");
-var entryPath = path.join(__dirname, "src/index.js");
+var entryPath = path.join(__dirname, "src/main.js");
 var outputPath = path.join(__dirname, "dist");
+var Promise = require("bluebird");
+
+Promise.config({
+  longStackTraces: true,
+  warnings: true // note, run node with --trace-warnings to see full stack traces for warnings
+})
 
 console.log("WEBPACK GO!");
 
@@ -23,6 +29,10 @@ var commonConfig = {
   },
 
   resolve: {
+    alias: {
+      Utilities: path.resolve(__dirname, 'src/utils/'),
+      Templates: path.resolve(__dirname, 'src/templates/'),
+    },
     extensions: ["", ".js"]
   },
 
