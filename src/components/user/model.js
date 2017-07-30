@@ -29,7 +29,6 @@ export const addUserTask = data => pic => {
 
 
 export const delUserTask = id => {
-  console.log(removeUser(id))
   return new Task((rej, res)=> {
     removeUser(id).then(res,rej)
   })
