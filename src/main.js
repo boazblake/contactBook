@@ -2,9 +2,9 @@
 // import "./static/styles/main.scss";
 import "./static/styles/styles.css";
 
-const UserList = require("./components/users/view.js")
-const userModel = require("./components/user/view.js")
-const Layout = require("./templates/Layout")
+import UserList from "./components/users/view.js"
+import userModel from "./components/user/view.js"
+import Layout from "./templates/Layout"
 
 m.route(document.body, "/list", {
 

@@ -2,7 +2,7 @@
 /* eslint no-undef: "error" */
 const getKey = () => firebase.database().ref().child("api/v1/users/").push().key
 const UserRef = id => firebase.database().ref(`api/v1/users/${id}`)
-const removeUser = id => UserRef.child(id)
+const removeUser = id => UserRef('').child(id).remove()
 import Task from "data.task"
 
 
@@ -29,7 +29,8 @@ export const addUserTask = data => pic => {
 
 
 export const delUserTask = id => {
+  console.log(removeUser(id))
   return new Task((rej, res)=> {
-    removeUser(id).remove().then(res,rej)
+    removeUser(id).then(res,rej)
   })
 }

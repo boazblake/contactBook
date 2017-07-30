@@ -20,9 +20,8 @@ const Users = {
 
     const onSuccess = dto => {
       const value = []
-      const data = dto//.getOrElse({})
+      const data = dto ? dto : null
 
-        log('data')(dto)
       if (!data) {
         return console.error("no users")
       }

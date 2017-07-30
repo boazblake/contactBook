@@ -1,9 +1,8 @@
-const m = require("mithril")
-const User = require("./component.js")
+import m from "mithril"
+import User from "./component.js"
 
-
-const UserForm = {
-  oninit: vnode => {vnode.attrs.id? User.edit(vnode.attrs.id) : User.add()},
+export const UserForm = {
+  oninit: vnode => {vnode.attrs.id? User.edit(vnode.attrs.id) : User.add(vnode.attrs)},
   view: function() {
     return User.state.current
       ? m("form", {
@@ -38,11 +37,12 @@ const UserForm = {
             ? User.state.updatedUserObject.profilePic
             : ""}),
 
+        m("button.button[type=submit]",{class: "c-button button-brand"},"Save"),
+
         m("button.button",{ class:"c-button c-button--error", onclick:m.withAttr("userId", User.deleteUser )
           , userId:User.state.updatedUserObject.id}, "X"),
 
-        m("button.button[type=submit]",{class: "c-button button-brand"},"Save"),
-      ])  : "LOADING"
+        ])  : "LOADING"
   }
 }
 
