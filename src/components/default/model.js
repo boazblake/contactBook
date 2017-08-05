@@ -34,4 +34,4 @@ export const loginUserTask = data =>
   new Task((rej, res) => loginUser(data).then(res, rej))
 
 export const loginTask =
-  compose(map(log('loggedin')), loginUserTask)
+  compose(loginUserTask)

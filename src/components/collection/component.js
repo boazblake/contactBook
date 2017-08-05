@@ -19,7 +19,6 @@ const Collection = {
       console.error("we have a problem", e)
 
     const onSuccess = dto => {
-      log('dto')(dto)
       const value = []
       const data = dto ? dto : null
 

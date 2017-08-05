@@ -2,7 +2,7 @@
 /* eslint no-undef: "error" */
 import Task from "data.task"
 import { fromNullable } from "data.maybe"
-import { log  } from '../../utils/index.js'
+import { log  } from 'utilities'
 import { compose, clone, map, prop, forEachObjIndexed} from 'ramda'
 
 //--models---------------------------------------------------------------------

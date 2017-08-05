@@ -27,7 +27,7 @@ m.route(document.body, "/list", {
     }
   },
 
-  "/logout": {
+  "/default": {
     render: function () {
       return m(Layout, m(defaultModel))
     }

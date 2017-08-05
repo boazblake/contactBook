@@ -1,6 +1,6 @@
 import m from 'mithril'
 import { registerTask, loginTask } from './model'
-import { log } from '../../utils/index.js'
+import { log } from 'utilities'
 
 export const Default = {
   state:{
@@ -22,11 +22,15 @@ export const Default = {
     const onError = e => log('error')(e)
     const onSuccess = s => {
       log('yes')(s)
-      localStorage.setItem(`${app_name}_user`, JSON.stringify(s))
+      localStorage.setItem(`_user`, JSON.stringify(s))
       return s
     }
 
     loginTask(Default.current).fork(onError, onSuccess)
+  },
+
+  logout: () => {
+
   }
 }
 
