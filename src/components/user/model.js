@@ -32,4 +32,7 @@ export const delUserTask = id => {
   return new Task((rej, res)=> {
     removeUser(id).then(res,rej)
   })
+
+// export const registerTask = name => password =>
+//   return new Task((rej, res) => )
 }

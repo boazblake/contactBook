@@ -61,15 +61,32 @@ if (TARGET_ENV === "development") {
   module.exports = merge(commonConfig, {
 
     entry: [
-      "webpack-dev-server/client?http://localhost:8080",
+      "webpack-dev-server/client?http://localhost:3000",
       entryPath
     ],
 
     devServer: {
       // serve index.html in place of 404 responses
       historyApiFallback: true,
-      contentBase: "./src"
+      contentBase: "./src",
+      hot: true,
+      inline: true,
+
+      host: 'localhost',
+      port: 3000,
+      proxy: {
+        '^/register': {
+          target: 'http://localhost:8080/register',
+          secure: false
+        }
+      }
     },
+
+    plugins: [
+      new webpack.HotModuleReplacementPlugin({
+        multiStep:true
+      })
+    ],
 
     module: {
       loaders: [

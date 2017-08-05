@@ -4,6 +4,7 @@ import "./static/styles/styles.css";
 
 import UserList from "./components/users/view.js"
 import userModel from "./components/user/view.js"
+import registerUser from "./components/default/view.js"
 import Layout from "./templates/Layout"
 
 m.route(document.body, "/list", {
@@ -23,6 +24,12 @@ m.route(document.body, "/list", {
   "/new": {
     render: function () {
       return m(Layout, m(userModel))
+    }
+  },
+
+  "/register": {
+    render: function () {
+      return m(Layout, m(registerUser))
     }
   }
 
