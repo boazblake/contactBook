@@ -23,7 +23,11 @@ var commonConfig = {
   },
 
   resolve: {
-    extensions: ["", ".js"]
+    extensions: ["", ".js"],
+    alias:
+      { 'utilities': path.resolve(__dirname, 'src/utils/index.js')
+      , 'fa': 'font-awesome/css/font-awesome.css'
+      }
   },
 
   module: {
@@ -73,13 +77,7 @@ if (TARGET_ENV === "development") {
       inline: true,
 
       host: 'localhost',
-      port: 3000,
-      proxy: {
-        '^/register': {
-          target: 'http://localhost:8080/register',
-          secure: false
-        }
-      }
+      port: 3000
     },
 
     plugins: [

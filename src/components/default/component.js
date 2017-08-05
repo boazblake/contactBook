@@ -1,18 +1,32 @@
 import m from 'mithril'
-import { registerTask } from './model'
+import { registerTask, loginTask } from './model'
 import { log } from '../../utils/index.js'
 
 export const Default = {
-  state: {
+  state:{
+    register:false
+  },
+  current: {
     email:'',
-    pasword:''
+    password:''
   },
 
   register: () => {
     const onError = e => log('error')(e)
     const onSuccess = s => log('yes')(s)
 
-    registerTask(Default.state).fork(onError, onSuccess)
+    registerTask(Default.current).fork(onError, onSuccess)
+  },
+
+  login: () => {
+    const onError = e => log('error')(e)
+    const onSuccess = s => {
+      log('yes')(s)
+      localStorage.setItem(`${app_name}_user`, JSON.stringify(s))
+      return s
+    }
+
+    loginTask(Default.current).fork(onError, onSuccess)
   }
 }
 

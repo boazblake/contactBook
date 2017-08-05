@@ -6,10 +6,10 @@ const removeUser = id => UserRef('').child(id).remove()
 import Task from "data.task"
 
 
-export const getUserTask = id =>
+export const getTask = id =>
   new Task((rej, res) => UserRef(id).once("value").then(res, rej))
 
-export const editUserTask = data => {
+export const editTask = data => {
   return new Task( (rej, res) =>
     UserRef(data.id).update(
       { firstName:  data.firstName
@@ -18,7 +18,7 @@ export const editUserTask = data => {
       }).then(res, rej))
 }
 
-export const addUserTask = data => pic => {
+export const addTask = data => pic => {
   data.id = getKey()
   data.profilePic = pic
 
@@ -28,7 +28,7 @@ export const addUserTask = data => pic => {
 }
 
 
-export const delUserTask = id => {
+export const delTask = id => {
   return new Task((rej, res)=> {
     removeUser(id).then(res,rej)
   })

@@ -15,11 +15,11 @@ const toVm = x =>{
 }
 
 //--Load------------------------------------------------------------------------
-const findUsers = ref =>
+const find = ref =>
   ref.once('value')
 
-const findUsersTask = ref =>
-  new Task((rej, res) => findUsers(ref).then(res, rej))
+const findTask = ref =>
+  new Task((rej, res) => find(ref).then(res, rej))
 
 const open = x =>
   x.val()
@@ -30,7 +30,7 @@ const toArray = x =>
 const toViewModel =
   compose(toArray, forEachObjIndexed(toVm))
 
-export const getUsersTask =
+export const getTask =
   compose( map(toViewModel)
          , map(open)
-         , findUsersTask)
+         , findTask)

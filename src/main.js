@@ -2,34 +2,34 @@
 // import "./static/styles/main.scss";
 import "./static/styles/styles.css";
 
-import UserList from "./components/users/view.js"
-import userModel from "./components/user/view.js"
-import registerUser from "./components/default/view.js"
+import collection from "./components/collection/view.js"
+import item from "./components/item/view.js"
+import defaultModel from "./components/default/view.js"
 import Layout from "./templates/Layout"
 
 m.route(document.body, "/list", {
 
   "/list": {
     render: function () {
-      return m(Layout, m(UserList))
+      return m(Layout, m(collection))
     }
   },
 
   "/edit/:id": {
     render: function (vnode) {
-      return m(Layout, m(userModel, vnode.attrs))
+      return m(Layout, m(item, vnode.attrs))
     }
   },
 
   "/new": {
     render: function () {
-      return m(Layout, m(userModel))
+      return m(Layout, m(item))
     }
   },
 
-  "/register": {
+  "/logout": {
     render: function () {
-      return m(Layout, m(registerUser))
+      return m(Layout, m(defaultModel))
     }
   }
 
