@@ -30,11 +30,11 @@ export const view = {
               ? Item.state.currentItem.lastName
               : ""}),
 
-        m("label.label", "profile pic"),
-        m("img", {src:Item.state.currentItem.profilePic
-          ? Item.state.currentItem.profilePic
-          : Item.state.updatedItem.profilePic
-            ? Item.state.updatedItem.profilePic
+        m("label.label", "image"),
+        m("img", {src:Item.state.currentItem.image
+          ? Item.state.currentItem.image
+          : Item.state.updatedItem.image
+            ? Item.state.updatedItem.image
             : ""}),
 
         m("button.button[type=submit]",{class: "c-button button-brand"},"Save"),

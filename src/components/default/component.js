@@ -27,10 +27,6 @@ export const Default = {
     }
 
     loginTask(Default.current).fork(onError, onSuccess)
-  },
-
-  logout: () => {
-
   }
 }
 

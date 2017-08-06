@@ -1,7 +1,8 @@
 import m from "mithril"
 import { clone } from "ramda"
-import { editTask, addTask, getTask, delTask} from "./model.js"
-import { log } from "../../utils/index.js"
+// import { editTask, addTask, getTask, delTask} from "./model.js"
+import { addTask} from "./model.mongo.js"
+import { log } from "utilities"
 
 export const Item = {
   state: {
@@ -14,7 +15,7 @@ export const Item = {
   edit:id => {
     const onError = e => console.log("E",e)
     const onSuccess = data => {
-      Item.data = data.val()
+      Item.data = data
       Item.state.currentItem = clone(Item.data)
       Item.state.updatedItem = clone(Item.state.currentItem)
       m.redraw()
@@ -30,13 +31,15 @@ export const Item = {
 
   save: () => {
     const onError =e => console.log("e",e)
-    const onSuccess = () => {
-      Item.state.currentItem = clone(Item.state.updatedItem)
+    const onSuccess = item => {
+      log('yes')(item)
+      Item.state.currentItem = item
       Item.state.updatedItem = clone(Item.state.currentItem)
     }
+
     Item.state.currentItem.id
       ? editTask(Item.state.updatedItem).fork(onError, onSuccess)
-      : addTask(Item.state.updatedItem)(Item.state.currentItem.profilePic).fork(onError, onSuccess)
+      : addTask(Item.state.updatedItem)(Item.state.currentItem.image).fork(onError, onSuccess)
 
   },
 
@@ -53,7 +56,7 @@ export const Item = {
       { currentItem:
         { firstName: ""
           , lastName: ""
-          , profilePic: "http://www.telegraph.co.uk/content/dam/men/2016/05/24/Untitled-1-large_trans_NvBQzQNjv4BqqVzuuqpFlyLIwiB6NTmJwfSVWeZ_vEN7c6bHu2jJnT8.jpg"
+          , image: "http://www.telegraph.co.uk/content/dam/men/2016/05/24/Untitled-1-large_trans_NvBQzQNjv4BqqVzuuqpFlyLIwiB6NTmJwfSVWeZ_vEN7c6bHu2jJnT8.jpg"
           , id: ""
         }
       , updatedItem: { }
