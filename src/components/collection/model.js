@@ -1,36 +1,13 @@
-/* global firebase */
-/* eslint no-undef: "error" */
-import Task from "data.task"
-import { fromNullable } from "data.maybe"
-import { log  } from 'utilities'
-import { compose, clone, map, prop, forEachObjIndexed} from 'ramda'
+import Task from 'data.task'
+import m from 'mithril'
+import { compose, map } from 'ramda'
 
-//--models---------------------------------------------------------------------
-const toVm = x =>{
-  return  { firstName: x.firstName
-          , lastName: x.lastName
-          , profilePic: x.profilePic
-          , id: x.id
-          }
-}
+export const fetch = _ =>
+  m.request(
+    { method:'GET'
+    , url: 'http://localhost:8080/items/'
+    }
+  )
 
-//--Load------------------------------------------------------------------------
-const find = ref =>
-  ref.once('value')
-
-const findTask = ref =>
-  new Task((rej, res) => find(ref).then(res, rej))
-
-const open = x =>
-  x.val()
-
-const toArray = x =>
-  [...Object.entries(x)]
-
-const toViewModel =
-  compose(toArray, forEachObjIndexed(toVm))
-
-export const getTask =
-  compose( map(toViewModel)
-         , map(open)
-         , findTask)
+export const findTask = _ =>
+  new Task((rej, res) => fetch().then(res, rej))

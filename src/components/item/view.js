@@ -2,7 +2,7 @@ import m from "mithril"
 import Item from "./component.js"
 
 export const view = {
-  oninit: vnode => {vnode.attrs.id? Item.edit(vnode.attrs.id) : Item.add(vnode.attrs)},
+  oninit: vnode => {vnode.attrs.id? Item.edit(vnode.attrs.id) : Item.add(vnode.attrs) },
   view: function() {
     return Item.state.currentItem
       ? m("form", {
@@ -40,7 +40,7 @@ export const view = {
         m("button.button[type=submit]",{class: "c-button button-brand"},"Save"),
 
         m("button.button",{ class:"c-button c-button--error", onclick:m.withAttr("userId", Item.deleteItem )
-          , userId:Item.state.updatedItem.id}, "X"),
+          , userId:Item.state.updatedItem._id}, "X"),
 
         ])  : "LOADING"
   }

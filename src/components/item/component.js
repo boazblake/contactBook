@@ -1,7 +1,7 @@
 import m from "mithril"
 import { clone } from "ramda"
-// import { editTask, addTask, getTask, delTask} from "./model.js"
-import { addTask} from "./model.mongo.js"
+// import { editTask, addTask, getTask, removeTask} from "./model.js"
+import { addTask, findTask, editTask, removeTask} from "./model.js"
 import { log } from "utilities"
 
 export const Item = {
@@ -15,38 +15,36 @@ export const Item = {
   edit:id => {
     const onError = e => console.log("E",e)
     const onSuccess = data => {
-      Item.data = data
-      Item.state.currentItem = clone(Item.data)
+      Item.state.currentItem = data
       Item.state.updatedItem = clone(Item.state.currentItem)
-      m.redraw()
     }
-
-    getTask(id).fork(onError, onSuccess)
+    findTask(id).fork(onError, onSuccess)
   },
 
-  add: _ => {
-    console.log('adding an item', _)
+  add: ()=> {
     Item.reset()
   },
 
   save: () => {
-    const onError =e => console.log("e",e)
+    const onError = e => log("e")(e)
     const onSuccess = item => {
-      log('yes')(item)
+      log('returned after save:')(item)
       Item.state.currentItem = item
       Item.state.updatedItem = clone(Item.state.currentItem)
     }
 
-    Item.state.currentItem.id
+    Item.state.currentItem._id
       ? editTask(Item.state.updatedItem).fork(onError, onSuccess)
       : addTask(Item.state.updatedItem)(Item.state.currentItem.image).fork(onError, onSuccess)
 
   },
 
   deleteItem:(id) => {
+    const onError = e => log('e')(e)
+    const onSuccess = s => log('s')(s)
     log("id")(id)
     id
-      ? delTask(id).fork(e => console.error("e", e), s => log("s")(s))
+      ? removeTask(id).fork(onError, onSuccess)
       : console.log("USER IS NOT IN Db ") //TOAST THIS
   },
 

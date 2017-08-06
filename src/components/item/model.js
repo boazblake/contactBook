@@ -1,38 +1,54 @@
-/* global firebase */
-/* eslint no-undef: "error" */
-const getKey = () => firebase.database().ref().child("api/v1/users/").push().key
-const ItemRef = id => firebase.database().ref(`api/v1/users/${id}`)
-const delItem = id => ItemRef('').child(id).remove()
-import Task from "data.task"
+import m from 'mithril'
+import Task from 'data.task'
+import { compose, map } from 'ramda'
+import { log } from "utilities"
 
+// ==== POST ==================================================================
+export const post = data =>
+  m.request(
+    { method: "POST"
+    , url: 'http://localhost:8080/items/add'
+    , data: data
+    })
 
-export const getTask = id =>
-  new Task((rej, res) => ItemRef(id).once("value").then(res, rej))
+export const postTask = data =>
+  new Task((rej, res) => post(data).then(res, rej))
 
-export const editTask = data => {
-  return new Task( (rej, res) =>
-    ItemRef(data.id).update(
-      { firstName:  data.firstName
-        , lastName:   data.lastName
-        , image: data.image
-      }).then(res, rej))
-}
+export const toRequest = item => image =>{
+    let Dto =
+      { firstName: item.firstName
+      , lastName: item.lastName
+      , image: image
+      }
+    return Dto
+  }
 
-export const addTask = data => pic => {
-  data.id = getKey()
-  data.image = pic
+export const addTask = item =>
+  compose(postTask
+          ,log('saved item?')
+          ,toRequest(item))
 
-  return new Task((rej, res) => {
-    ItemRef(data.id).set(data)
-      .then(res, rej) })
-}
+// ==== GET ==================================================================
+export const fetch = id =>
+  m.request(
+    { method:'GET'
+    , url: `http://localhost:8080/items/${id}`
+    }
+  )
 
+export const findTask = id =>
+  new Task((rej, res) => fetch(id).then(res, rej))
 
-export const delTask = id => {
-  return new Task((rej, res)=> {
-    delItem(id).then(res,rej)
-  })
+  // ==== UPDATE ==================================================================
+  export const editTask = _ => {}
+  // ==== DELETE ==================================================================
+export const remove = id =>
+  m.request(
+    { method: 'DELETE'
+    , url: `http://localhost/items/${id}`
+    , data : {_id:id}
+    }
+  )
 
-// export const registerTask = name => password =>
-//   return new Task((rej, res) => )
-}
+export const removeTask = id =>
+  new Task((rej, res) => remove(id).then(res, rej) )

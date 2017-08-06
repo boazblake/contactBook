@@ -1,14 +1,10 @@
 import { clone, map } from 'ramda'
-import { getTask } from "./model.js"
+import { findTask } from "./model.js"
 import { log } from 'utilities'
-const CollectionRef = firebase.database().ref(`api/v1/users/`)
 
 
 const Collection = {
-  state: {
-    ref:CollectionRef,
-    id:0
-  },
+  state: {},
   data: {
     list: []
   },
@@ -18,22 +14,13 @@ const Collection = {
     const onError = e =>
       console.error("we have a problem", e)
 
-    const onSuccess = dto => {
-      const value = []
-      const data = dto ? dto : null
+    const onSuccess = dto =>
+      Collection.data.list = dto
 
-      if (!data) {
-        return console.error("no users")
-      }
-
-      Collection.data.list = data
-      Collection.state.list = clone(Collection.data.list)
-      m.redraw()
-    }
-    getTask(Collection.state.ref).fork(onError, onSuccess)
+    findTask().fork(onError, onSuccess)
   },
 
-  reset: () =>{}
+  reset: () => {}
 
 }
 

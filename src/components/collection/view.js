@@ -2,16 +2,16 @@ import m from "mithril"
 import Collection from "./component.js"
 
 const view = {
-  oninit: Collection.load,
+  oninit: Collection.load(),
   view:() => {
-    return Collection.state.list
-      ? m(".item.list", Collection.state.list.map( item =>
+    return Collection.data.list[0]
+      ? m(".item.list", Collection.data.list.map( item =>
         m("a.item-list-item"
-          , { oncreate: m.route.link, href: `/edit/${item[0]}`}
-          , item[1].firstName + " " + item[1].lastName
+          , { oncreate: m.route.link, href: `/edit/${item._id}`, key: item._id}
+          , item.firstName + " " + item.lastName
         )
       ))
-      : "Loading"
+      : m("img", {src:'http://www.emptymag.com/wp-content/uploads/2016/06/EMPTY-masthead.png'})
   }
 }
 

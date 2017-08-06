@@ -21,7 +21,7 @@ export const Default = {
   login: () => {
     const onError = e => log('error')(e)
     const onSuccess = s => {
-      log('yes')(s)
+      log('user id logged in:')(s)
       localStorage.setItem(`_user`, JSON.stringify(s))
       return s
     }
