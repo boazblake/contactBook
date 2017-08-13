@@ -11,33 +11,29 @@ import { checkAuth } from 'authConfig'
 m.route(document.body, "/default", {
 
   "/list": {
-    render: function () {
-      return checkAuth()
-      ? m(Layout, m(collection))
-      : m(Layout, m(defaultModel))
-    }
+    render: ( ) =>
+      checkAuth()
+        ? m(Layout, m(collection))
+        : m(Layout, m(defaultModel))
   },
 
   "/edit/:id": {
-    render: function (vnode) {
-      return checkAuth()
-      ? m(Layout, m(item, vnode.attrs))
-      : m(Layout, m(defaultModel))
-    }
+    render: vnode =>
+      checkAuth()
+        ? m(Layout, m(item, vnode.attrs))
+        : m(Layout, m(defaultModel))
   },
 
   "/new": {
-    render: function () {
-      return checkAuth()
-      ? m(Layout, m(item))
-      : m(Layout, m(defaultModel))
-    }
+    render: () =>
+      checkAuth()
+        ? m(Layout, m(item))
+        : m(Layout, m(defaultModel))
   },
 
   "/default": {
-    render: function () {
-      return m(Layout, m(defaultModel))
-    }
+    render: () =>
+      m(Layout, m(defaultModel))
   }
 
 })

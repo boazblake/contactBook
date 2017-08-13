@@ -4,7 +4,11 @@ import Task from 'data.task'
 import { compose, map } from 'ramda'
 import { log } from "utilities"
 
-
+var searchXHR = null
+function abortPreviousSearch() {
+    if (searchXHR !== null) searchXHR.abort()
+    searchXHR = null
+}
 // ==== POST ==================================================================
 export const post = data =>
   m.request( { method: "POST", url:'http://localhost:8080/items/add', data:data} )
@@ -27,7 +31,9 @@ export const addTask = item =>
 
 // ==== GET ==================================================================
 export const fetch = id =>
-  m.request( {method:'GET', url:`http://localhost:8080/items/${id}`} )
+  m.request({  method:'GET'
+            , url:`http://localhost:8080/items/${id}`
+            , config: (xhr) => searchXHR = xhr} )
 
 export const findTask = id =>
   new Task((rej, res) => fetch(id).then(res, rej))

@@ -15,7 +15,7 @@ const Layout = {
     return m("main.layout",
       [ m("nav.menu ", {class:"c-nav c-nav--inline c-nav--light"},
         [ m("a[href='/list']",{oncreate: m.route.link, class:"c-nav__item"}, "COLLECTION")
-        , m("a[href='/new']", {href: "new", onupdate: m.route.link, class:"c-nav__item"}, "ADD")
+        , m("a[href='/new']", {oncreate: m.route.link, onupdate: m.route.link, class:"c-nav__item"}, "ADD")
         , m("a[href='/default']", {oncreate: m.route.link, class:"c-nav__item"}, "Login")
         , m("button.button",{class: "c-button button-brand logout", onclick:logout},"Logout")
         ])
