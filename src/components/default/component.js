@@ -20,9 +20,10 @@ export const Default = {
 
   login: () => {
     const onError = e => log('error')(e)
+
     const onSuccess = s => {
       log('user id logged in:')(s)
-      localStorage.setItem(`_user`, JSON.stringify(s))
+      localStorage.setItem('userId', JSON.stringify(s.userId))
       return s
     }
 

@@ -26,6 +26,7 @@ var commonConfig = {
     extensions: ["", ".js"],
     alias:
       { 'utilities': path.resolve(__dirname, 'src/utils/index.js')
+      , 'authConfig': path.resolve(__dirname, 'src/authConfig/index.js')
       , 'fa': 'font-awesome/css/font-awesome.css'
       }
   },

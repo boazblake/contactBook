@@ -1,6 +1,6 @@
 import Task from 'data.task'
 import { compose, map } from 'ramda'
-import { log } from '../../utils/index'
+import { log } from 'utilities'
 import m from 'mithril'
 
 
