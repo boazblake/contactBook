@@ -2,13 +2,9 @@ import m from "mithril"
 import Item from "./component.js"
 
 export const view = {
-  oninit: vnode =>
-    vnode.attrs.id
-      ? Item.edit(vnode.attrs.id)
-      : Item.add(),
 
   view: vnode => {
-    vnode.attrs.id
+    m.route.get() !== '/new'
       ? Item.edit(vnode.attrs.id)
       : Item.add()
 

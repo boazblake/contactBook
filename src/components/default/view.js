@@ -1,4 +1,3 @@
-import m from "mithril"
 import Default from "./component.js"
 
 export const view = {

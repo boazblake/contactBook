@@ -1,4 +1,3 @@
-import m from "mithril"
 import Collection from "./component.js"
 
 const view = {

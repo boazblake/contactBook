@@ -12,7 +12,7 @@ const Collection = {
 
   load: () => {
     const onError = e =>
-      console.error("we have a problem", e)
+      error("we have a problem", e)
 
     const onSuccess = dto =>
       Collection.data.list = dto

@@ -1,4 +1,3 @@
-import m from 'mithril'
 import { registerTask, loginTask } from './model'
 import { log } from 'utilities'
 
@@ -24,7 +23,7 @@ export const Default = {
     const onSuccess = s => {
       log('user id logged in:')(s)
       localStorage.setItem('userId', JSON.stringify(s.userId))
-      return s
+      m.route.set('/list')
     }
 
     loginTask(Default.current).fork(onError, onSuccess)

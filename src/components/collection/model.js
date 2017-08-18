@@ -1,5 +1,4 @@
 import Task from 'data.task'
-import m from 'mithril'
 import { compose, map } from 'ramda'
 
 export const fetch = _ =>
